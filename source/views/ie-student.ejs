@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="../../public/components/bootstrap/css/bootstrap.min.css">
+<div class="bs-docs-example">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>模考名</th>
+            <!--<th>状态</th>-->
+            <th>操作1</th>
+            <th>操作2</th>
+            <th>操作3</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+            if(sdata.result.length !=0){
+               sdata.result.forEach(function(val,index){
+        %>
+        <tr>
+            <td><%=val.paperName%></td>
+            <!--<td>102分</td>-->
+            <%
+             if(val.flagFinish==-1){
+            %>
+            <td><a class="btn">开始测试</a></td>
+            <%}
+            if(val.flagFinish==0){
+            %>
+            <td><a class="btn">继续测试</a></td>
+            <!--<td><a class="btn">答题记录</a></td>-->
+            <%}
+             if(val.flagFinish==1){
+            %>
+            <td><a class="btn">下载报告</a></td>
+            <td><a class="btn">查看报告</a></td>
+            <td><a class="btn">答题记录</a></td>
+            <%}%>
+        </tr>
+        <%});}%>
+        </tbody>
+    </table>
+</div>
+
+<div class="lpath_page">
+    <div class="model_test">
+        <div class="model_test_opers">
+            <div class="mt_boxop">
+                <ul class="mt_exam_result mt_student" style="display:block;">
+                    <li>
+                        <dl class="fix">
+                            <dt class="f_l"><span class="mt_name">TOP模考1</span><span class="mt_sts">102分</span></dt>
+                            <dd class="f_r"><a href="#">答题记录</a><a href="#">查看报告</a><a href="#">下载报告</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

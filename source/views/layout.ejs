@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= appTitle %></title>
+    <link rel="stylesheet" href="<%= asset.mainCss %>">
+    <script>
+        window.appConfig = window.appConfig || {};
+        window.appConfig.mode = '<%=asset.mode%>';
+        window.page = <%- JSON.stringify(page) %>;
+    </script>
+    <script src="<%= asset.mainJs %>" data-main="<%= asset.configJs %>"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<!--头部start-->
+<header>
+    <div class="learn_path_header">
+        <dl class="lpath_page  top">
+            <dt class="f_l">
+                <a href="/" data-bypass>
+                    <img src="/public/build/img/po/images/logo.png" width="101" height="64" alt="学路"/></a>
+            </dt>
+            <dd class="f_r">
+                <ul class="nav">
+                    <li>
+                        <div class="menu">
+                            <span><font></font>我的班级</span>
+                        </div>
+                        <div class="sub_menu">
+                            <% if(page.myClass) {page.myClass.slice(0, 3).forEach(function(clas){ %>
+                            <a href="class-<%= clas.SchoolId %>-<%= clas.ClassCode %>"><%= clas.ClassName %></a>
+                            <% }); } %>
+                            <% if (page.user.type != 5) { %>
+                            <a href="schedules-class-1" data-bypass>查看所有班级</a>
+                            <% } %>
+                        </div>
+                    </li>
+
+                    <!--<li>
+                        <div class="menu"><span><font></font>学习计划</span></div>
+                            <div class="sub_menu">
+                            <a href="#">托福</a>
+                            <a href="#">雅思</a>
+                            <a href="#">GRE</a>
+                            <a href="#">管理我的计划</a>
+                            <a href="#">学习计划广场</a>
+                        </div>
+                    </li>-->
+                    <!--<li>
+                        <div class="menu"><span><font></font>应用</span></div>
+                            <div class="sub_menu">
+                            <a href="#">托福精讲精练班TF112</a>
+                            <a href="#">雅思走读班IE123</a>
+                            <a href="#">GRE住宿班GG234</a>
+                            <a href="#">查看所有班级</a>
+                        </div>
+                    </li>-->
+                    <li class="ico_infor right_blank">
+                        <div class="menu"><span><img src="/public/build/img/po/images/icon_infor.png" width="27"
+                                                     height="23"
+                                                     alt=""/><%if(page.num_no_read > 0) {%><font style="position:absolute; top:20px; right:20px; width:20px; height:20px; background:#f00; font-size:14px; color:#fff; text-align:center; border-radius:20px; line-height:20px;"><%=page.num_no_read%></font><% }%></span></div>
+                        <div class="sub_menu">
+                            <%
+                                for(var m=0;m<page.msglist.length;m++) {
+                                    var msg = page.msglist[m];
+                                    //未删除的和未读的显示
+                                    if(msg.is_delete.indexOf(page.user.id) == -1 && msg.is_read.indexOf(page.user.id) == -1) {
+                            %>
+                            <a href="#"><%=msg.title%></a>
+                            <%
+                                    }
+                                }
+                            %>
+                            <a data-bypass href="/notifications">管理我的通知</a>
+                        </div>
+                    </li>
+                    <li class="ico_infor right_blank1">
+                        <div class="menu"><span>
+                                <img src="/public/build/img/po/images/icon_my.png" width="27" height="23" alt=""/>
+                            </span></div>
+                        <div class="sub_menu">
+                            <!--<a href="#">个人页面</a>-->
+                            <!--<a href="#">账号设置</a>-->
+                            <%if (page.user.type == 5 || page.user.type == 0) {%><a href="/main-bind" data-bypass>绑定学员号</a><%}%>
+                            <a href="/auth/logout" data-bypass>退出</a>
+                        </div>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</header>
+
+<section>
+
+    <div class="tile-padding">
+        <%- blocks.view %>
+    </div>
+    <div class="tile-body" data-view-id="manager">
+        <%- body %>
+    </div>
+
+</section>
+
+<footer>
+    <!--版权信息start-->
+    <div class="learn_path_footer">
+        <div class="lpath_page">
+            <p>北京新东方教育科技（集团）有限公司<br/>
+                Copyright 2011-2014 Neworiental Corporation, All Rights Reserved<br/>
+                © 2011-2014 新东方 版权所有<br/>
+                <img src="/public/build/img/po/images/lp_bottom_logo.png" width="67" height="58" alt=""/></p>
+        </div>
+    </div>
+    <!--版权信息end-->
+</footer>
+</body>
+</html>
